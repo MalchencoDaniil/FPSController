@@ -6,18 +6,11 @@ public class CameraController : MonoBehaviour
 {
     private float _horizontalAxis, _verticalAxis, axisRotation = 0.0f;
 
-    private GameManager _gameManager;
-
     [SerializeField] 
     private float mouseSensetivity = 10;
 
     [SerializeField] 
     private Transform target;
-
-    private void Start()
-    {
-        _gameManager = FindObjectOfType<GameManager>();
-    }
 
     private void Update()
     {
@@ -27,7 +20,7 @@ public class CameraController : MonoBehaviour
 
     private void MyInput()
     {
-        Vector2 _mouseLook = _gameManager.inputActions.Player.Camera.ReadValue<Vector2>();
+        Vector2 _mouseLook = GameManager.instance.inputActions.Player.Camera.ReadValue<Vector2>();
 
         _horizontalAxis = _mouseLook.x * mouseSensetivity * Time.deltaTime;
         _verticalAxis = _mouseLook.y * mouseSensetivity * Time.deltaTime;
