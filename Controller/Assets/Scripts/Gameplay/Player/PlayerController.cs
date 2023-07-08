@@ -22,9 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private CharacterController characterController;
 
-    [SerializeField]
-    private GameManager gameManager;
-
     [Header("Movement Stats")]
     [SerializeField]
     private float movementSpeed = 10.0f;
@@ -60,9 +57,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _currentSpeed = movementSpeed;
-
-        gameManager = FindObjectOfType<GameManager>();
-
+        
         if (characterController == null)
         {
             characterController = GetComponent<CharacterController>();
@@ -81,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void MyInput()
     {
-        Vector2 input = gameManager.inputActions.Player.Movement.ReadValue<Vector2>();
+        Vector2 input = GameManager.instance.inputActions.Player.Movement.ReadValue<Vector2>();
 
         _horizontalAxis = input.x;
         _verticalAxis = input.y;
@@ -109,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (isGrounded() && gameManager.inputActions.Player.Jump.triggered)
+        if (isGrounded() && GameManager.instance.inputActions.Player.Jump.triggered)
         {
             _playerVelocity.y = jumpForce;
         }
@@ -117,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleCrouch()
     {
-        if (gameManager.inputActions.Player.Crouch.IsPressed() && playerState != PlayerState.Run) 
+        if (GameManager.instance.inputActions.Player.Crouch.IsPressed() && playerState != PlayerState.Run) 
         {
             movementSpeed = _currentSpeed / 2.0f;
             playerState = PlayerState.Crouch;
@@ -131,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSprint()
     {
-        if (gameManager.inputActions.Player.Sprint.IsPressed() && playerState != PlayerState.Crouch)
+        if (GameManager.instance.inputActions.Player.Sprint.IsPressed() && playerState != PlayerState.Crouch)
         {
             playerState = PlayerState.Run;
             movementSpeed = _currentSpeed + 2;
