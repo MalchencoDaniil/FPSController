@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    private GameManager gameManager;    
-
     private Vector3 _startPosition;
 
     internal float _inputMagnitude;
@@ -20,12 +18,6 @@ public class CameraShake : MonoBehaviour
 
     private void Start()
     {
-        if (gameManager == null)
-        {
-            gameManager = FindObjectOfType<GameManager>();
-            return;
-        }
-
         _startPosition = transform.localPosition;
     }
 
@@ -38,7 +30,7 @@ public class CameraShake : MonoBehaviour
 
     private void CheckForHeadBobTrigger()
     {
-        Vector2 _input = gameManager.inputActions.Player.Movement.ReadValue<Vector2>();
+        Vector2 _input = GameManager.instance.inputActions.Player.Movement.ReadValue<Vector2>();
 
         _inputMagnitude = new Vector3(_input.x, 0, _input.y).magnitude;
 
