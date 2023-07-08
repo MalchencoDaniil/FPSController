@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+    
     internal InputActions inputActions;
 
     private void Awake()
     {
+        instance = this;
+        
         inputActions = new InputActions();
     }
 
